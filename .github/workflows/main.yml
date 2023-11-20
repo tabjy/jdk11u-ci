@@ -49,49 +49,47 @@ on:
         descriptions: 'test suites to verify'
         required: true
         default: |
-          [
-            {
-              "test-name": "jdk/tier1 part 1",
-              "test-suite": "test/jdk/:tier1_part1"
-            },
-            {
-              "test-name": "jdk/tier1 part 2",
-              "test-suite": "test/jdk/:tier1_part2"
-            },
-            {
-              "test-name": "jdk/tier1 part 3",
-              "test-suite": "test/jdk/:tier1_part3"
-            },
-            {
-              "test-name": "langtools/tier1",
-              "test-suite": "test/langtools/:tier1"
-            },
-            {
-              "test-name": "hs/tier1 common",
-              "test-suite": "test/hotspot/jtreg/:tier1_common",
-              "debug-suffix": "-debug"
-            },
-            {
-              "test-name": "hs/tier1 compiler",
-              "test-suite": "test/hotspot/jtreg/:tier1_compiler",
-              "debug-suffix": "-debug"
-            },
-            {
-              "test-name": "hs/tier1 gc",
-              "test-suite": "test/hotspot/jtreg/:tier1_gc",
-              "debug-suffix": "-debug"
-            },
-            {
-              "test-name": "hs/tier1 runtime",
-              "test-suite": "test/hotspot/jtreg/:tier1_runtime",
-              "debug-suffix": "-debug"
-            },
-            {
-              "test-name": "hs/tier1 serviceability",
-              "test-suite": "test/hotspot/jtreg/:tier1_serviceability",
-              "debug-suffix": "-debug"
-            }
-          ]
+          {
+            "test-name": "jdk/tier1 part 1",
+            "test-suite": "test/jdk/:tier1_part1"
+          },
+          {
+            "test-name": "jdk/tier1 part 2",
+            "test-suite": "test/jdk/:tier1_part2"
+          },
+          {
+            "test-name": "jdk/tier1 part 3",
+            "test-suite": "test/jdk/:tier1_part3"
+          },
+          {
+            "test-name": "langtools/tier1",
+            "test-suite": "test/langtools/:tier1"
+          },
+          {
+            "test-name": "hs/tier1 common",
+            "test-suite": "test/hotspot/jtreg/:tier1_common",
+            "debug-suffix": "-debug"
+          },
+          {
+            "test-name": "hs/tier1 compiler",
+            "test-suite": "test/hotspot/jtreg/:tier1_compiler",
+            "debug-suffix": "-debug"
+          },
+          {
+            "test-name": "hs/tier1 gc",
+            "test-suite": "test/hotspot/jtreg/:tier1_gc",
+            "debug-suffix": "-debug"
+          },
+          {
+            "test-name": "hs/tier1 runtime",
+            "test-suite": "test/hotspot/jtreg/:tier1_runtime",
+            "debug-suffix": "-debug"
+          },
+          {
+            "test-name": "hs/tier1 serviceability",
+            "test-suite": "test/hotspot/jtreg/:tier1_serviceability",
+            "debug-suffix": "-debug"
+          }
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

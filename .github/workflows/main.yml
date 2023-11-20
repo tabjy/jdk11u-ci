@@ -26,10 +26,6 @@
 name: 'OpenJDK GHA Sanity Checks'
 
 on:
-  push:
-    branches-ignore:
-      - master
-      - pr/*
   workflow_dispatch:
     inputs:
       platforms:
@@ -41,6 +37,13 @@ on:
         required: false
       make-arguments:
         description: 'Additional make arguments'
+        required: false
+      repository:
+        description: 'JDK 11 source repository'
+        required: true
+        default: 'openjdk/jdk11u-dev'
+      ref:
+        description: 'branch or hash'
         required: false
 
 concurrency:
@@ -130,6 +133,8 @@ jobs:
       gcc-major-version: '10'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     # The linux-x64 jdk bundle is used as buildjdk for the cross-compile job
     if: needs.select.outputs.linux-x64 == 'true' || needs.select.outputs.linux-cross-compile == 'true'
 
@@ -148,6 +153,8 @@ jobs:
       extra-conf-options: '--with-target-bits=32'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.linux-x86 == 'true'
 
   build-linux-x64-hs-nopch:
@@ -162,6 +169,8 @@ jobs:
       extra-conf-options: '--disable-precompiled-headers'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.linux-x64-variants == 'true'
 
   build-linux-x64-hs-zero:
@@ -176,6 +185,8 @@ jobs:
       extra-conf-options: '--with-jvm-variants=zero --disable-precompiled-headers'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.linux-x64-variants == 'true'
 
   build-linux-x64-hs-minimal:
@@ -190,6 +201,8 @@ jobs:
       extra-conf-options: '--with-jvm-variants=minimal --disable-precompiled-headers'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.linux-x64-variants == 'true'
 
   build-linux-x64-hs-optimized:
@@ -205,6 +218,8 @@ jobs:
       extra-conf-options: '--with-debug-level=optimized --disable-precompiled-headers'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.linux-x64-variants == 'true'
 
   build-linux-cross-compile:
@@ -217,6 +232,8 @@ jobs:
       gcc-major-version: '10'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.linux-cross-compile == 'true'
 
   build-macos-x64:
@@ -228,6 +245,8 @@ jobs:
       xcode-toolset-version: '11.7'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.macos-x64 == 'true'
 
   build-macos-aarch64:
@@ -240,6 +259,8 @@ jobs:
       extra-conf-options: '--openjdk-target=aarch64-apple-darwin'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.macos-aarch64 == 'true'
 
   build-windows-x64:
@@ -252,6 +273,8 @@ jobs:
       msvc-toolset-architecture: 'x86.x64'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.windows-x64 == 'true'
 
   build-windows-aarch64:
@@ -266,6 +289,8 @@ jobs:
       extra-conf-options: '--openjdk-target=aarch64-unknown-cygwin'
       configure-arguments: ${{ github.event.inputs.configure-arguments }}
       make-arguments: ${{ github.event.inputs.make-arguments }}
+      repository: ${{ github.event.inputs.repository }}
+      ref: ${{ github.event.inputs.ref }}
     if: needs.select.outputs.windows-aarch64 == 'true'
 
   ###

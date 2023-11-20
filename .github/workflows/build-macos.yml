@@ -51,6 +51,12 @@ on:
       make-arguments:
         required: false
         type: string
+      repository: 
+        required: true
+        type: string
+      ref:
+        required: false
+        type: string
 
 jobs:
   build-macos:
@@ -69,6 +75,9 @@ jobs:
     steps:
       - name: 'Checkout the JDK source'
         uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.repository }}
+          ref: ${{ inputs.ref }}
 
       - name: 'Get the BootJDK'
         id: bootjdk

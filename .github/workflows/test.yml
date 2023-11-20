@@ -56,7 +56,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(format('{"include": [{0}]}', inputs.test-suites)) }}
+      matrix: ${{ fromJSON(format('{"include":[{0}]}', inputs.test-suites)) }}
 
     steps:
       - name: 'Checkout the JDK source'

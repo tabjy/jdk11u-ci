@@ -45,6 +45,53 @@ on:
       ref:
         description: 'branch or hash'
         required: false
+      test-suites:
+        descriptions: 'test suites to verify'
+        required: true
+        default: |
+          [
+            {
+              "test-name": "jdk/tier1 part 1",
+              "test-suite": "test/jdk/:tier1_part1"
+            },
+            {
+              "test-name": "jdk/tier1 part 2",
+              "test-suite": "test/jdk/:tier1_part2"
+            },
+            {
+              "test-name": "jdk/tier1 part 3",
+              "test-suite": "test/jdk/:tier1_part3"
+            },
+            {
+              "test-name": "langtools/tier1",
+              "test-suite": "test/langtools/:tier1"
+            },
+            {
+              "test-name": "hs/tier1 common",
+              "test-suite": "test/hotspot/jtreg/:tier1_common",
+              "debug-suffix": "-debug"
+            },
+            {
+              "test-name": "hs/tier1 compiler",
+              "test-suite": "test/hotspot/jtreg/:tier1_compiler",
+              "debug-suffix": "-debug"
+            },
+            {
+              "test-name": "hs/tier1 gc",
+              "test-suite": "test/hotspot/jtreg/:tier1_gc",
+              "debug-suffix": "-debug"
+            },
+            {
+              "test-name": "hs/tier1 runtime",
+              "test-suite": "test/hotspot/jtreg/:tier1_runtime",
+              "debug-suffix": "-debug"
+            },
+            {
+              "test-name": "hs/tier1 serviceability",
+              "test-suite": "test/hotspot/jtreg/:tier1_serviceability",
+              "debug-suffix": "-debug"
+            }
+          ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -306,6 +353,7 @@ jobs:
       platform: linux-x64
       bootjdk-platform: linux-x64
       runs-on: ubuntu-22.04
+      test-suites: ${{ github.event.inputs.test-suites }}
 
   test-linux-x86:
     name: linux-x86
@@ -316,6 +364,7 @@ jobs:
       platform: linux-x86
       bootjdk-platform: linux-x64
       runs-on: ubuntu-22.04
+      test-suites: ${{ github.event.inputs.test-suites }}
 
   test-macos-x64:
     name: macos-x64
@@ -326,6 +375,7 @@ jobs:
       platform: macos-x64
       bootjdk-platform: macos-x64
       runs-on: macos-11
+      test-suites: ${{ github.event.inputs.test-suites }}
 
   test-windows-x64:
     name: windows-x64
@@ -336,6 +386,7 @@ jobs:
       platform: windows-x64
       bootjdk-platform: windows-x64
       runs-on: windows-2019
+      test-suites: ${{ github.event.inputs.test-suites }}
 
   # Remove bundles so they are not misconstrued as binary distributions from the JDK project
   remove-bundles:
